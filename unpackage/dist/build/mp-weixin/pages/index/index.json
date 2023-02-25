@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "芝麻小班",
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "class-item": "/compontents/ClassItem",
+    "auth-model": "/compontents/AuthModel",
+    "avatar": "/compontents/Avatar",
+    "tag": "/compontents/Tag"
+  }
+}

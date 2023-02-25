@@ -1,0 +1,30 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/createClass/create-class",
+    "pages/createClass/create-success",
+    "pages/createClass/create-attention",
+    "pages/createClass/class-detail",
+    "pages/createClass/search-class",
+    "pages/task/index",
+    "pages/task/publishTask",
+    "pages/task/checkgroup",
+    "pages/index/updateAvatar"
+  ],
+  "subPackages": [
+    {
+      "root": "subpkg",
+      "pages": [
+        "pages/login/my"
+      ],
+      "name": "sub-1"
+    }
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "usingComponents": {}
+}

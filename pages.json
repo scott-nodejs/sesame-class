@@ -1,0 +1,92 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "芝麻小班",
+				"navigationStyle":"custom"
+			}
+		},
+		{
+			"path": "pages/createClass/create-class",
+			"style": {
+				"navigationBarTitleText": "创建班级"
+			}
+		},
+		{
+			"path": "pages/createClass/create-success",
+			"style": {
+				"navigationBarTitleText": "创建成功"
+			}
+		},
+		{
+			"path": "pages/createClass/create-attention",
+			"style": {
+				"navigationBarTitleText": "创建规范"
+			}
+		},
+		{
+			"path": "pages/createClass/class-detail",
+			"style": {
+				"navigationBarTitleText": "班级"
+			}
+		},
+		{
+			"path": "pages/createClass/search-class",
+			"style": {
+				"navigationBarTitleText": "搜索"
+			}
+		},
+		{
+			"path": "pages/task/index",
+			"style": {
+				"navigationBarTitleText": "任务"
+			}
+		},
+		{
+			"path": "pages/task/publishTask",
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationBarBackgroundColor": "#2F54EB",
+				"navigationBarColor": "#FFFFFF",
+				"navigationBarTextStyle": "white"
+			}
+		},
+		{
+			"path": "pages/task/checkgroup",
+			"style": {
+				"navigationBarTitleText": "选择对象"
+			}
+		},
+		{
+			"path": "pages/index/updateAvatar",
+			"style": {
+				"navigationBarTitleText": "修改头像"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"easycom": {
+	  "autoscan": true
+	},
+	"subPackages": [
+	  {
+	    "root": "subpkg",
+	    "name": "sub-1",
+	    "pages": [
+	      {
+	        "path": "pages/login/my",
+	        "style": {
+	          "navigationBarTitleText": "",
+	          "enablePullDownRefresh": false
+	        }
+	      }
+	    ]
+	  }
+	]
+}

@@ -1,0 +1,1 @@
+.tag_container{border-radius:6rpx;display:flex;flex-direction:row;justify-content:center;align-items:center}.tag_container .label{font-size:20rpx}

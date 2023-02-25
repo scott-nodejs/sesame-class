@@ -1,0 +1,1 @@
+<view class="tag_container" style="{{'background:'+(''+bgColor)+';'+('width:'+(width+'rpx')+';')+('height:'+(height+'rpx')+';')}}"><view class="label" style="{{'color:'+(''+labelColor)+';'}}">{{label}}</view></view>

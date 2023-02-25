@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "班级",
+  "usingComponents": {
+    "avatar": "/compontents/Avatar",
+    "tag": "/compontents/Tag",
+    "auth-model": "/compontents/AuthModel",
+    "token-modal": "/compontents/TokenModal"
+  }
+}

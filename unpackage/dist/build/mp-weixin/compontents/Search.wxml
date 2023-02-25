@@ -1,0 +1,1 @@
+<view class="search_container"><image class="search_icon" src="https://img.hazer.top/classImage/assets/icon_search.png"></image><input class="input" placeholder="{{hint}}" placeholderClass="input_hint" confirm-type="search" autoFocus="{{autoFocus}}" data-event-opts="{{[['confirm',[['onSearch']]]]}}" bindconfirm="__e"/></view>

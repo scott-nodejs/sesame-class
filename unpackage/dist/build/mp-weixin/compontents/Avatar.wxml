@@ -1,0 +1,1 @@
+<view class="avatar_container" style="{{'width:'+(radius+'rpx')+';'+('height:'+(radius+'rpx')+';')}}"><image class="avatar_image" style="{{'width:'+(radius+'rpx')+';'+('height:'+(radius+'rpx')+';')+('border:'+(border+'px solid #FFFFFF')+';')}}" mode="scaleToFill" src="{{img}}"></image></view>

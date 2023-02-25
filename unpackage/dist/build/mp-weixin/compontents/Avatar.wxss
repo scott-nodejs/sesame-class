@@ -1,0 +1,1 @@
+.avatar_container{border-radius:50%;box-sizing:border-box;box-shadow:0 7rpx 20rpx rgba(0,0,0,.08)}.avatar_container .avatar_image{border-radius:50%}

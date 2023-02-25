@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "搜索",
+  "usingComponents": {
+    "search": "/compontents/Search",
+    "class-item": "/compontents/ClassItem"
+  }
+}

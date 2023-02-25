@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "",
+  "navigationBarBackgroundColor": "#2F54EB",
+  "navigationBarColor": "#FFFFFF",
+  "navigationBarTextStyle": "white",
+  "usingComponents": {
+    "uni-datetime-picker": "/uni_modules/uni-datetime-picker/components/uni-datetime-picker/uni-datetime-picker",
+    "avatar": "/compontents/Avatar"
+  }
+}
