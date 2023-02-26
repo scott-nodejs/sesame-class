@@ -125,6 +125,14 @@
 		   		const formData = data;
 				let _this = this;
 				if(!this.token){
+					let code;
+					uni.login({
+					  provider: 'weixin',
+					  success(login) {
+					      console.log(login);
+							code = login.code;
+					  }
+					});
 					uni.getUserProfile({
 					  desc: '登录后可同步数据',
 					  success: async (obj) => {
@@ -160,6 +168,10 @@
 						if(res.code == 200){
 							this.showTokenModal = false;
 							this.getOne(this.classId);
+							uni.requestSubscribeMessage({
+							  tmplIds: ['lLze-peqdI2BcWzmqAviCRhMZQccXI7tXnHKlsZ6-Lk'],
+							  success (res) { }
+							})
 						}else{
 							uni.showToast({
 								title: '口令验证失败',

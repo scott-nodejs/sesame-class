@@ -1,4 +1,4 @@
-import { login1 } from 'api/user';
+import { login } from 'api/user';
 const STORAGE_KEY = 'user-info';
 const TOKEN_KEY = 'token';
 const NEW_USER_FLAG = 'new_user_flag';
@@ -90,7 +90,7 @@ export default {
 	  rawData.avatarUrl = 'https://thirdwx.qlogo.cn/mmopen/vi_32/ctI2ictkuicWm7XclWR02nZFGf1C9hRpfG5WKCZic63NtVdlylibSKQ60v6ialibMswZLURthhKtuKLk7ib3nwLUa88Jg/132';
       rawData.nickName = 'fly-' + Math.random().toString(36).substr(2)
 	  // 调用登录接口
-      const data = await login1({
+      const data = await login({
         signature: userProfile.signature,
         iv: userProfile.iv,
 		encryptedData: userProfile.encryptedData,

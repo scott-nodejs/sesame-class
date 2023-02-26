@@ -43,7 +43,7 @@ export function getClassOne(data) {
 
 export function metchToken(data) {
   return request({
-    url: '/class/metch/token/',
+    url: '/class/metch/token',
 	method: 'post',
     data
   });

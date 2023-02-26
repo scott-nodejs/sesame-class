@@ -18,7 +18,7 @@
 		</view>			
 		<view class="uni-list">
 			<checkbox-group @change="checkboxChange">
-				<label class="uni-list-cell uni-list-cell-pd" v-for="item in items" :key="item.value">
+				<label class="uni-list-cell uni-list-cell-pd" v-for="item in items" :key="item.id">
 					<view>
 						<checkbox :value="item.id" :checked="item.checked" />
 					</view>
@@ -64,11 +64,12 @@
 				this.items = data
 			},
 			checkboxChange: function (e) {
+				
 				var items = this.items,
 					values = e.detail.value;
 				for (var i = 0, lenI = items.length; i < lenI; ++i) {
 					const item = items[i]
-					if(values.includes(item.value)){
+					if(values.includes(item.id+'')){
 						this.$set(item,'checked',true)
 					}else{
 						this.$set(item,'checked',false)

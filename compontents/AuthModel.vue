@@ -6,10 +6,18 @@
 	          <view class='modal_desc'>请先授权登录进行操作</view>
 	        </view>
 	        <Image class="rocket" src= 'https://img.hazer.top/classImage/assets/illustration_login.png' />
+	        <!-- #ifdef MP-WEIXIN -->
 	        <Button
 	          hoverClass='auth_btn_hover'
 	          class='auth_btn'
 	          @tap="getUserInfo">确认授权</Button>
+	        <!-- #endif -->
+	        <!-- #ifndef MP-WEIXIN -->
+			<Button
+			  hoverClass='auth_btn_hover'
+			  class='auth_btn'
+			  @tap="onAutoLogin">一键登录</Button>
+	        <!-- #endif -->
 	        <view class='modal_close'>
 	          <image class='close_icon' src='https://img.hazer.top/classImage/assets/icon_close.png' @click="closeM"></image>
 	        </view>
@@ -35,11 +43,20 @@
 				uni.showLoading({
 					title: '登录中...'
 				})
+				let code;
+				let _this = this;
+				uni.login({
+				  provider: 'weixin',
+				  success(login) {
+				      console.log(login);
+					  _this.code = login.code;
+				  }
+				});
 				uni.getUserProfile({
 				  desc: '登录后可同步数据',
 				  success: async (obj) => {
 				    // 调用 action ，请求登录接口
-					obj["userInfo"]["code"] = this.code;
+					obj["userInfo"]["code"] = _this.code;
 				    await this.login(obj);
 				    // 登录成功之后，发送事件
 				    this.$emit('loginYes');
@@ -59,7 +76,25 @@
 			},
 			closeM(){
 				this.$emit("close")
-			}
+			},
+			async onAutoLogin() {
+			  // 展示加载框
+			  uni.showLoading({
+			    title: '加载中'
+			  });
+			  await this.login({
+			    encryptedData: 'BmGEMqpGI5w',
+			    errMsg: 'getUserProfile:ok',
+			    iv: 'c+NbINO4CuEWCBYGG2FxWw==',
+			    rawData:
+			      '{"nickName":"小慕同学","gender":1,"language":"zh_CN","city":"","province":"","country":"China","avatarUrl":"https://m.imooc.com/static/wap/static/common/img/logo-small@2x.png"}',
+			    signature: '449a10f11998daf680fe546a5176e6e2973516ce',
+			    userInfo: { nickName: '小慕同学', gender: 1, language: 'zh_CN', city: '', province: '' }
+			  });
+			  this.$emit('loginYes');
+			  // 隐藏loading
+			  uni.hideLoading();
+			},
 		}
 	}
 	

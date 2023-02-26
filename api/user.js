@@ -5,7 +5,7 @@ import request from '../utils/request';
  */
 export function login(data) {
   return request({
-    url: '/sys/login',
+    url: '/class/sys/login',
     method: 'POST',
     data
   });
