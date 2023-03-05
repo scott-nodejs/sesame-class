@@ -1,5 +1,5 @@
-const BASE_URL = 'https://yima.hazer.top/lazyer';
-// const BASE_URL = 'http://localhost:9080/oneCode/lazyer';
+// const BASE_URL = 'https://yima.hazer.top/lazyer';
+const BASE_URL = 'http://localhost:9080/oneCode/lazyer';
 import store from '../store';
 function request({ url, data, method }) {
   return new Promise((resolve, reject) => {

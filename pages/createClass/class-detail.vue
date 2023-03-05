@@ -9,7 +9,17 @@
 	      <view class='detail_container'>
 	        <view class='class_container'>
 	          <view class='class'>{{classState.className}}</view>
-			  <Tag :label="classState.role == 1 ? trueLabel : falseLabel" />
+			  <Button v-if="classState.role == 1" hoverClass='btn_hover'
+			     class='action_btn1'
+			  	 @click="release">
+			     解散
+			  </Button>
+			  <Button v-else hoverClass='btn_hover'
+			     class='action_btn1'
+			  	 @click="exitClass">
+			     退出
+			  </Button>
+			  <!-- <Tag v-else :label="falseLabel" /> -->
 	        </view>
 	        <view class='class_info'>
 	          <view class='info_item'>创建人：{{classState.creator}}</view>
@@ -40,8 +50,6 @@
 				 @click="bindBtnClick">
 			     加入班级
 			  </Button>
-
-	          
 	        </view>
 			<view v-else class='action_btn_container'>
 			  <Button hoverClass='btn_hover'
@@ -59,7 +67,7 @@
 	import Tag from '../../compontents/Tag.vue'
 	import AuthModel from '../../compontents/AuthModel.vue'
 	import TokenModal from '../../compontents/TokenModal.vue'
-	import {getClassOne,metchToken} from '../../api/api.js'
+	import {getClassOne,metchToken,releaseClass,exitClass} from '../../api/api.js'
 	import {mapState,mapActions} from "vuex";
 	export default {
 		components:{
@@ -164,14 +172,18 @@
 					  }
 					});
 				}else{
+					uni.showLoading({
+						title: '操作进行中'
+					})
 					metchToken({token: formData.token, classId: this.classId, tagName: formData.tagName}).then((res)=>{
+						uni.hideLoading();
 						if(res.code == 200){
 							this.showTokenModal = false;
 							this.getOne(this.classId);
-							uni.requestSubscribeMessage({
-							  tmplIds: ['lLze-peqdI2BcWzmqAviCRhMZQccXI7tXnHKlsZ6-Lk'],
-							  success (res) { }
-							})
+							// uni.requestSubscribeMessage({
+							//   tmplIds: ['lLze-peqdI2BcWzmqAviCRhMZQccXI7tXnHKlsZ6-Lk'],
+							//   success (res) { }
+							// })
 						}else{
 							uni.showToast({
 								title: '口令验证失败',
@@ -181,6 +193,69 @@
 					});
 				}
 		   },
+		   exitClass(){
+			   let _this = this;
+			   uni.showModal({
+			   	  content: '是否要退出该班级',
+			   				  confirmText: '确定',
+			   				  cancelText: '取消',
+			   				  success(res) {
+			   					if(res.confirm){
+			   						uni.showLoading({
+			   							title: '操作进行中'
+			   						})
+									exitClass({id: _this.classId}).then(res=>{
+										uni.hideLoading();
+										if(res.code == 200){
+											setTimeout(()=>{
+												uni.navigateTo({
+													url:'/pages/index/index'
+												})
+											}, 1000)										   
+										}else{
+											uni.showToast({
+												title: '退出失败',
+												icon:'none'
+											})										   
+										}
+									})
+							    }
+							}
+				})
+		   },
+		   release(){
+			   let _this = this;
+			   uni.showModal({
+			   	  content: '是否要解散该班级',
+				  confirmText: '确定',
+				  cancelText: '取消',
+				  success(res) {
+					if(res.confirm){
+						uni.showLoading({
+							title: '操作进行中'
+						})
+						releaseClass({id: _this.classId}).then(res=>{
+							uni.hideLoading();
+							if(res.code == 200){
+								setTimeout(()=>{
+									uni.navigateTo({
+										url:'/pages/index/index'
+									})
+								}, 1000)										   
+							}else{
+								uni.showToast({
+									title: '解散失败',
+									icon:'none'
+								})										   
+							}			   
+						})
+					}else if(res.cancel){
+						
+					}
+				  }
+			   })
+			   
+		   }
 		}
 	}
 </script>
@@ -226,7 +301,7 @@
 	  padding: 60rpx 52rpx;
 	  
 	  .class_container{
-		  width: 80%;
+		  width: 90%;
 		  @include flex(row, space-between, center);
 	  }
 	
@@ -289,7 +364,15 @@
 	    }
 	  }
 	
-	
+	.action_btn1 {
+	  @include wh(186rpx, 78rpx);
+	  @include font('white');
+	  @include flex(row, center, center);
+	  margin-left: 50%;
+	  background: $primary-color;
+	  box-shadow: 0 14rpx 40rpx 0 $second-color;
+	  border-radius: 12rpx;
+	}
 	
 	  .btn_hover {
 	    box-shadow: none;

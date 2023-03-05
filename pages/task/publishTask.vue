@@ -18,12 +18,41 @@
 	             />
 	        </view>
 	        <view class='form_item'>
-	          <view class='form_label'>任务类型：</view>
-	          <picker mode='selector' :value="index" :range="OPTION" @change="typeChange" range-key="name">
+	          <view class='form_label'>科目类型：</view>
+	          <picker mode="selector"
+			   :value="index"
+			   :range="OPTION"
+			   @change="typeChange"
+			   range-key="name"
+			   >
 	            <view class='picker'>{{OPTION[index].name}}</view>
 	          </picker>
 	          <image class='select_arrow' src="https://img.hazer.top/classImage/assets/icon_select_arrow.png" />
 	        </view>
+			<view class='form_item'>
+			  <view class='form_label'>知识类型：</view>
+			  <picker mode="selector"
+			   :value="cindex"
+			   :range="OPTION[index].children"
+			   @change="typeChange1"
+			   range-key="name"
+			   >
+			    <view class='picker'>{{OPTION[index].children[cindex].name}}</view>
+			  </picker>
+			  <image class='select_arrow' src="https://img.hazer.top/classImage/assets/icon_select_arrow.png" />
+			</view>
+			<view class='form_item'>
+			  <view class='form_label'>任务类型：</view>
+			  <picker mode="selector"
+			   :value="ccindex"
+			   :range="OPTION[index].children[cindex].children"
+			   @change="typeChange2"
+			   range-key="name"
+			   >
+			    <view class='picker'>{{OPTION[index].children[cindex].children[ccindex].name}}</view>
+			  </picker>
+			  <image class='select_arrow' src="https://img.hazer.top/classImage/assets/icon_select_arrow.png" />
+			</view>
 	        <view class='form_item'>
 	          <view class='form_label'>任务数量：</view>
 	          <input
@@ -82,18 +111,22 @@
 			return {
 				OPTION: [],
 				index: 0,
+				cindex: 0,
+				ccindex: 0,
 				radius: 148,
 				border: 4,
 				avatar: 'https://img.hazer.top/classImage/assets/default_avatar.png',
 				task: {
 					taskName:'',
-					type: 1,
+					type: 0,
 					taskNum: 0,
 					users:'',
 					ids:'',
 					startTime: '',
 					endTime: '',
-					classId: 0
+					classId: 0,
+					subjectTypeId: 1,
+					contentTypeId: 0
 				}
 			}
 		},
@@ -145,6 +178,12 @@
 					this.showToast(TASK_TIME_ERROR)
 					return false
 				}
+				if(this.task.contentTypeId == 0){
+					this.task.contentTypeId = this.OPTION[this.index].children[0].id
+				}
+				if(this.task.type == 0){
+					this.task.type = this.OPTION[this.index].children[this.cindex].children[0].id
+				}
 				createTask(this.task).then(res=>{
 					if(res.code == 200){
 						this.showToast("任务创建成功")
@@ -156,8 +195,17 @@
 				})
 			},
 			typeChange(e){
-				this.task.type = this.OPTION[e.detail.value].id
+				this.task.subjectTypeId = this.OPTION[e.detail.value].id
 				this.index = e.detail.value;
+			},
+			typeChange1(e){
+				console.log(e)
+				this.task.contentTypeId = this.OPTION[this.index].children[e.detail.value].id
+				this.cindex = e.detail.value;
+			},
+			typeChange2(e){
+				this.task.type = this.OPTION[this.index].children[this.cindex].children[e.detail.value].id
+				this.ccindex = e.detail.value;
 			},
 			checkFormEmpty(formItem) {
 			  return formItem.length === 0

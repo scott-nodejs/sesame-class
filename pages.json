@@ -63,6 +63,12 @@
 			"style": {
 				"navigationBarTitleText": "修改头像"
 			}
+		},
+		{
+			"path": "pages/task/ranking",
+			"style": {
+				"navigationBarTitleText": "任务详情"
+			}
 		}
 	],
 	"globalStyle": {

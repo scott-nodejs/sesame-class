@@ -39,6 +39,14 @@
 								<text>{{ items.taskName }}</text>
 							</view>
 							<view>
+								<text class="title padding-right-unset">科目类型：</text>
+								<text>{{ items.subjectType }}</text>
+							</view>
+							<view>
+								<text class="title padding-right-unset">知识类型：</text>
+								<text>{{ items.contentType }}</text>
+							</view>
+							<view>
 								<text class="title padding-right-unset">任务类型：</text>
 								<text>{{ items.taskType }}</text>
 							</view>
@@ -46,7 +54,14 @@
 								<text class="title padding-right-unset">完成数量：</text>
 								<text>{{ items.taskNum }}</text>
 							</view>
-							<view class="title padding-right-unset">
+							<view v-if="role == 1" class="title padding-right-unset">
+								<Button hoverClass='btn_hover'
+								  class='action_btn1'
+								  @click="joinClick">
+								  详情
+								</Button>
+							</view>
+							<view v-else class="title padding-right-unset">
 								<Button hoverClass='btn_hover'
 								  class='action_btn1'
 								  @click="joinClick">
@@ -149,7 +164,9 @@ export default {
 			})
 		},
 		joinClick(){
-			
+			uni.navigateTo({
+				url: '/pages/task/ranking'
+			})
 		},
 		tabSelect(e) {
 			this.week = +e.currentTarget.dataset.id + 1;

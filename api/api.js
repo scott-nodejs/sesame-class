@@ -72,7 +72,23 @@ export function myTask(data) {
 
 export function updateUserInfo(data){
 	return request({
-	  url: '/user/update',
+	  url: '/class/user/update',
+	  method: 'post',
+	  data
+	});
+}
+
+export function releaseClass(data){
+	return request({
+	  url: '/class/release/'+data.id,
+	  method: 'delete',
+	  data
+	});
+}
+
+export function exitClass(data){
+	return request({
+	  url: '/class/exit/'+data.id,
 	  method: 'post',
 	  data
 	});

@@ -1,6 +1,6 @@
 import { login } from 'api/user';
-const STORAGE_KEY = 'user-info';
-const TOKEN_KEY = 'token';
+const STORAGE_KEY = 'sesame-user-info';
+const TOKEN_KEY = 'sesame-token';
 const NEW_USER_FLAG = 'new_user_flag';
 export default {
   namespaced: true,
