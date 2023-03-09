@@ -6,7 +6,7 @@
 			<view>
 				<radio-group @change="radioChange">
 					<label class="radio"><radio value="all"  />全选</label>
-					<label class="radio"><radio value="notAll" checked="true" />全校权限</label>
+					<label class="radio"><radio value="notAll" checked="true" />取消全选</label>
 				</radio-group>
 			</view>
 		</view>

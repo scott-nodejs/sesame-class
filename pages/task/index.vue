@@ -57,14 +57,14 @@
 							<view v-if="role == 1" class="title padding-right-unset">
 								<Button hoverClass='btn_hover'
 								  class='action_btn1'
-								  @click="joinClick">
+								  @click="lookDetail(items.id)">
 								  详情
 								</Button>
 							</view>
 							<view v-else class="title padding-right-unset">
 								<Button hoverClass='btn_hover'
 								  class='action_btn1'
-								  @click="joinClick">
+								  @click="joinClick(items.id)">
 								  加入
 								</Button>
 							</view>
@@ -94,7 +94,7 @@
 
 <script>
 import { formatDayTime, teacherData } from '../../utils/common.js';
-import {myTask} from '../../api/api.js';
+import {myTask, updateStatus} from '../../api/api.js';
 const oneDayTimeStamp = 86400000; // 一天的时间戳
 const now = new Date();
 const todayDayTimeStamp = now.getTime(); //今天的时间戳
@@ -163,9 +163,16 @@ export default {
 				url: './publishTask?id='+this.classId
 			})
 		},
-		joinClick(){
+		joinClick(id){
+			updateStatus({taskId: id, status: 2});
 			uni.navigateTo({
-				url: '/pages/task/ranking'
+				url: '/pages/task/exam'
+			})
+		},
+		lookDetail(id){
+			updateStatus({taskId: id, status: 2});
+			uni.navigateTo({
+				url: '/pages/task/exam?id='+id
 			})
 		},
 		tabSelect(e) {

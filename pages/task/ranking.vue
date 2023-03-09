@@ -2,17 +2,21 @@
     <view>
 		<view class="top-bar">
 		  <text catchtap="tapRanking" data-index="0" :class="activeIndex==='0'?'top-bar-active':''">已完成</text>
-		  <text catchtap="tapRanking" data-index="1" :class="activeIndex==='1'?'top-bar-active':''">未完成</text>
+		  <text catchtap="tapRanking" data-index="1" :class="activeIndex==='1'?'top-bar-active':''">进行中</text>
+		  <text catchtap="tapRanking" data-index="2" :class="activeIndex==='1'?'top-bar-active':''">未开始</text>
 		</view>
 		
 		<scroll-view scroll-y="true" v-if="rankingList.length!==0" style="height: listHeight;" class="list animated fadeIn faster">
 		  <block v-for="(user, index) in rankingList" :key="index">
 		    <view class="item animated fadeIn faster">
+			  <view class="ranking-num">
+			    <text class="ranking-num-text">{{index+1}}</text>	
+			  </view>
 		      <image class="avartar" :src="user.avatar" />
 		      <text class="nickname">{{user.name}}</text>
 		      <view class="grade">
 		        <image class="grade-img" src="/static/pk-images/ranking-grade.png" />
-		        <text class="grade-text">{{user.score}}</text>
+		        <text class="grade-text">{{user.num}}</text>
 		      </view>
 		    </view>
 		  </block>
@@ -26,7 +30,33 @@
 	export default {
 		data() {
 		    return {
-                rankingList: [],
+                rankingList: [
+					{
+						avatar: 'https://thirdwx.qlogo.cn/mmopen/vi_32/mu3PUqzj4dw6GpGuAGwS71nF4alud7rYPWxl4W1TqZE1wpdzxCFq0fdnU4veZRHAlAyS5dNkDzWESbupquz9ibg/132',
+						name: '牛牛牛',
+						num: 4
+					},
+					{
+						avatar: 'https://thirdwx.qlogo.cn/mmopen/vi_32/mu3PUqzj4dw6GpGuAGwS71nF4alud7rYPWxl4W1TqZE1wpdzxCFq0fdnU4veZRHAlAyS5dNkDzWESbupquz9ibg/132',
+						name: '牛牛牛',
+						num: 4
+					},
+					{
+						avatar: 'https://thirdwx.qlogo.cn/mmopen/vi_32/mu3PUqzj4dw6GpGuAGwS71nF4alud7rYPWxl4W1TqZE1wpdzxCFq0fdnU4veZRHAlAyS5dNkDzWESbupquz9ibg/132',
+						name: '牛牛牛',
+						num: 4
+					},
+					{
+						avatar: 'https://thirdwx.qlogo.cn/mmopen/vi_32/mu3PUqzj4dw6GpGuAGwS71nF4alud7rYPWxl4W1TqZE1wpdzxCFq0fdnU4veZRHAlAyS5dNkDzWESbupquz9ibg/132',
+						name: '牛牛牛',
+						num: 4
+					},
+					{
+						avatar: 'https://thirdwx.qlogo.cn/mmopen/vi_32/mu3PUqzj4dw6GpGuAGwS71nF4alud7rYPWxl4W1TqZE1wpdzxCFq0fdnU4veZRHAlAyS5dNkDzWESbupquz9ibg/132',
+						name: '牛牛牛',
+						num: 4
+					}
+				],
 				activeIndex: '0',
 				listHeight: 0
 			}
@@ -139,7 +169,7 @@
 	.item {
 	  display: flex;
 	  align-items: center;
-	  height: 108rpx;
+	  height: 148rpx;
 	  width: 721rpx;
 	}
 	

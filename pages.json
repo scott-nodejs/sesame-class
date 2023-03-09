@@ -69,6 +69,12 @@
 			"style": {
 				"navigationBarTitleText": "任务详情"
 			}
+		},
+		{
+			"path": "pages/task/exam",
+			"style": {
+				"navigationBarTitleText": "任务"
+			}
 		}
 	],
 	"globalStyle": {
@@ -78,7 +84,10 @@
 		"backgroundColor": "#F8F8F8"
 	},
 	"easycom": {
-	  "autoscan": true
+	  "autoscan": true,
+	  "custom": {
+	  	"dialog-(.*)":"@/compontents/dialog/$1.vue"
+	  }
 	},
 	"subPackages": [
 	  {

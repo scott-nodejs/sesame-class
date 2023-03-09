@@ -93,3 +93,33 @@ export function exitClass(data){
 	  data
 	});
 }
+
+export function taskDesc(data){
+	return request({
+	  url: '/class/task/desc/'+data.id,
+	  data
+	});
+}
+
+export function taskReport(data){
+	return request({
+	  url: '/class/task/report',
+	  method: 'post',
+	  data
+	});
+}
+
+export function updateStatus(data){
+	return request({
+	  url: '/class/task/status/'+data.taskId+'/'+data.status,
+	  method: 'post',
+	  data
+	});
+}
+
+export function finishTask(data){
+	return request({
+	  url: '/class/task/finish/'+data.taskId,
+	  data
+	});
+}
