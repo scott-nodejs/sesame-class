@@ -1,9 +1,9 @@
 <template>
     <view>
 		<view class="top-bar">
-		  <text catchtap="tapRanking" data-index="0" :class="activeIndex==='0'?'top-bar-active':''">已完成</text>
-		  <text catchtap="tapRanking" data-index="1" :class="activeIndex==='1'?'top-bar-active':''">进行中</text>
-		  <text catchtap="tapRanking" data-index="2" :class="activeIndex==='1'?'top-bar-active':''">未开始</text>
+		  <text @tap="tapRanking" data-index="3" :class="activeIndex==='3'?'top-bar-active':''">已完成</text>
+		  <text @tap="tapRanking" data-index="2" :class="activeIndex==='2'?'top-bar-active':''">进行中</text>
+		  <text @tap="tapRanking" data-index="1" :class="activeIndex==='1'?'top-bar-active':''">未开始</text>
 		</view>
 		
 		<scroll-view scroll-y="true" v-if="rankingList.length!==0" style="height: listHeight;" class="list animated fadeIn faster">
@@ -22,61 +22,70 @@
 		  </block>
 		  <view style="height: 108rpx;width: 100%;"></view>
 		</scroll-view>
+		<view v-else class="flex justify-center" style="margin-top: 260rpx;">
+			<image
+				src="../../static/not.png"
+				mode=""
+				class=""
+				style="width: 100px;height: 80px;"
+			></image>
+		</view>
 	</view>
 </template>
 
 <script>
-	// import { ScoreRank } from '../../api/api.js';
+	import { taskList } from '../../api/api.js';
 	export default {
 		data() {
 		    return {
-                rankingList: [
-					{
-						avatar: 'https://thirdwx.qlogo.cn/mmopen/vi_32/mu3PUqzj4dw6GpGuAGwS71nF4alud7rYPWxl4W1TqZE1wpdzxCFq0fdnU4veZRHAlAyS5dNkDzWESbupquz9ibg/132',
-						name: '牛牛牛',
-						num: 4
-					},
-					{
-						avatar: 'https://thirdwx.qlogo.cn/mmopen/vi_32/mu3PUqzj4dw6GpGuAGwS71nF4alud7rYPWxl4W1TqZE1wpdzxCFq0fdnU4veZRHAlAyS5dNkDzWESbupquz9ibg/132',
-						name: '牛牛牛',
-						num: 4
-					},
-					{
-						avatar: 'https://thirdwx.qlogo.cn/mmopen/vi_32/mu3PUqzj4dw6GpGuAGwS71nF4alud7rYPWxl4W1TqZE1wpdzxCFq0fdnU4veZRHAlAyS5dNkDzWESbupquz9ibg/132',
-						name: '牛牛牛',
-						num: 4
-					},
-					{
-						avatar: 'https://thirdwx.qlogo.cn/mmopen/vi_32/mu3PUqzj4dw6GpGuAGwS71nF4alud7rYPWxl4W1TqZE1wpdzxCFq0fdnU4veZRHAlAyS5dNkDzWESbupquz9ibg/132',
-						name: '牛牛牛',
-						num: 4
-					},
-					{
-						avatar: 'https://thirdwx.qlogo.cn/mmopen/vi_32/mu3PUqzj4dw6GpGuAGwS71nF4alud7rYPWxl4W1TqZE1wpdzxCFq0fdnU4veZRHAlAyS5dNkDzWESbupquz9ibg/132',
-						name: '牛牛牛',
-						num: 4
-					}
-				],
-				activeIndex: '0',
+				taskId: 0,
+                rankingList: [],
+				activeIndex: '3',
 				listHeight: 0
 			}
 		},
-		onLoad() {
-			//this.slist();
+		onLoad(options) {
+			this.taskId = options.id;
+			this.slist(3);
 		},
 		created() {
+			
 		},
 		methods:{
-
+           async slist(status){
+			   let {data} = await taskList({id: this.taskId, status: status})
+			   this.rankingList = data;
+		   },
+		   tapRanking(e){
+			   console.log(e);
+			   const { currentTarget: { dataset: { index } } } = e
+			   if (this.activeIndex !== index) {
+			     this.activeIndex = index;
+			     if (index === '3') {
+			       this.slist(3)
+			     } else if (index === '2') {
+			       this.slist(2)
+			     } else if (index === '1') {
+			       this.slist(1)
+			     }
+			   }  
+		   }
+		   
 		}
 	};
 </script>
 
-<style>
+<style lang="scss">
 	page {
 	  background-color: #F8F8F8;
 	  position: relative;
 	  height: 100vh;
+	}
+	.flex {
+		display: flex;
+	}
+	.justify-center {
+		justify-content: center;
 	}
 	
 	.header {

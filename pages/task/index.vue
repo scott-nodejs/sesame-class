@@ -30,7 +30,11 @@
 								<view class="text-lg">
 									<text class="cuIcon-time text-orange"></text>
 									<text class="margin-lr-xs text-bold">{{ items.startTime }}</text>
+									<text v-if="items.status == 2" class="margin-lr-xs text-bold" style="color: #ED1C24;">任务进行中...</text>
+									<text v-else-if="items.status == 3" class="margin-lr-xs text-bold" style="color: #ED1C24;">任务已结束</text>
+								    <text v-else class="margin-lr-xs text-bold" style="color: #ED1C24;">任务未开始</text>
 								</view>
+								
 							</view>
 						</view>
 						<view class="text-lg">
@@ -104,7 +108,7 @@ export default {
 	name: 'time-table',
 	data() {
 		return {
-			week: getDay, // 今天的星期
+			week: now.getDay() === 0 ? 7 : now.getDay(), // 今天的星期
 			classId: 0,
 			timeList: [
 				{
@@ -150,6 +154,7 @@ export default {
 	// 	this.thisWeek(); // 一开始进入页面获取本周的课程表
 	// },
 	async onShow() {
+		this.week = now.getDay() === 0 ? 7 : now.getDay();
 		this.thisWeek();
 	},
 	onLoad(options) {
@@ -166,13 +171,12 @@ export default {
 		joinClick(id){
 			updateStatus({taskId: id, status: 2});
 			uni.navigateTo({
-				url: '/pages/task/exam'
+				url: '/pages/task/exam?id='+id
 			})
 		},
 		lookDetail(id){
-			updateStatus({taskId: id, status: 2});
 			uni.navigateTo({
-				url: '/pages/task/exam?id='+id
+				url: '/pages/task/ranking?id='+id
 			})
 		},
 		tabSelect(e) {
@@ -184,7 +188,9 @@ export default {
 			console.log('上一周');
 			this.week = 1;
 			this.num = this.num - 1;
-			if (this.num === 0) this.num === -1;
+			if (this.num === 0) {
+				this.week = now.getDay() === 0 ? 7 : now.getDay();
+			}
 			if (this.num >= 0) {
 				this.mondayDayTimeStamp = todayDayTimeStamp - oneDayTimeStamp * (getDay - 1) + oneDayTimeStamp * (7 * this.num); // 上星期一的时间戳
 				this.sundayDayTimeStamp = (7 - getDay) * oneDayTimeStamp + todayDayTimeStamp + oneDayTimeStamp * (7 * this.num); //上星期天的时间戳
@@ -207,7 +213,9 @@ export default {
 			console.log('下一周');
 			this.week = 1;
 			this.num = this.num + 1;
-			if (this.num === 0) this.num === 1;
+			if (this.num === 0) {
+				this.week = now.getDay() === 0 ? 7 : now.getDay();
+			}
 			if (this.num <= 0) {
 				this.mondayDayTimeStamp = todayDayTimeStamp - oneDayTimeStamp * (getDay - 1) - oneDayTimeStamp * (7 * Math.abs(this.num)); // 下星期一的时间戳
 				this.sundayDayTimeStamp = (7 - getDay) * oneDayTimeStamp + todayDayTimeStamp - oneDayTimeStamp * (7 * Math.abs(this.num)); //下星期天的时间戳
@@ -252,6 +260,7 @@ export default {
 			this.getMyTasks();
 		},
 		async getMyTasks(){
+			
 			let {data} = await myTask({day : this.week - 1 , num: this.num, classId: this.classId});
 			this.list = data;
 		}

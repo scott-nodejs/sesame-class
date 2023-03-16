@@ -262,6 +262,13 @@
 
 <style lang="scss">
 	@import "../../static/mixin.scss";
+	.result-words__line {
+	    display: flex;
+	    align-items: center;
+	    height: 120rpx;
+	    justify-content: space-around;
+		background-color: #FFFFFF;
+	}
 	.page_detail {
 	  padding-bottom: 150rpx;
 	}

@@ -6,11 +6,11 @@
 				<view @click="closed" class="middle-closed">
 					<text class="iconfont  iconbtn_close cl-notice ft20"></text>
 				</view>
-				<view class="text-center">
+				<!-- <view class="text-center">
 					<text class="ft16 ftw600 cl-main">任务完成了</text>
-				</view>
+				</view> -->
 				<view class="text-center mt24">
-					<image src="https://img.hazer.top/lazyer/pk.png" style="width: 412rpx; height: 296rpx;"></image>
+					<image src="https://pic.616pic.com/ys_bnew_img/00/25/89/WOoSeB34uY.jpg" style="width: 412rpx; height: 296rpx;"></image>
 				</view>
 				<view class="mt24" style="max-height: 200rpx; overflow-y: scroll;">
 					<view class="birthday-gift-box pd16_15">

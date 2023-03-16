@@ -3,7 +3,7 @@
 		<view class="examtypes">
 			<swiper class="examtypes-swiper" :current="currentindexpage" @change="change">
 				<template v-for="(itemcard,indexcard) in examdata.examlist">
-					<swiper-item>
+					<swiper-item @touchmove.stop="">
 						<view class="swiper-item">
 							<!-- <listscroll> -->
 								<view class="exam-type">
@@ -61,18 +61,18 @@
 		<!-- 倒计时 -->
 		<view class="exam-countdown">
 			<view class="exam-coundown_page">
-				<view @click="pageswitch(0)" class="exam-page_btn">
+				<button @click="pageswitch(0)" class="exam-page_btn">
 					上一题
-				</view>
+				</button>
 				<view v-if="!analysis" class="exam-page_length" @click="card_off">
 					题卡（{{currentindexpage + 1}}/{{examdata.examlist.length}}）
 				</view>
 				<view v-else class="exam-page_length" @click="card_off">
 					题卡（{{currentindexpage + 1}}/{{analysislist.length}}）
 				</view>
-				<view @click="pageswitch(1)" class="exam-page_btn">
+				<button @click="pageswitch(1)" class="exam-page_btn">
 					下一题
-				</view>
+				</button>
 			</view>
 		</view>
 		<dialog-birthday :showOnly="false" :taskId="taskId" v-if="showResult" @closed="showResult = false"></dialog-birthday>
@@ -84,6 +84,7 @@
 	export default {
 		data() {
 			return {
+				parseShow: false,
 				taskId: 0,
 				showResult: false,
 				examvisible: false, // 答题卡显示隐藏
@@ -128,6 +129,7 @@
 				}, // 考试数据
 			};
 		},
+		
 		onLoad(detail) {
 			this.taskId = detail.id
 			this.getExams(detail.id)
@@ -142,9 +144,21 @@
 
 		},
 		methods: {
-			async getExams(id){
-				let {data} = await taskDesc({id: id});
-				this.examdata.examlist = data.examVos;
+			getExams(id){
+				let _this = this;
+				uni.showLoading({
+					title: '加载中',
+					mask: false
+				});
+				taskDesc({id: id}).then(res=>{
+					uni.hideLoading();
+					if(res.code == 200){
+						_this.examdata.examlist = res.data.examVos;
+						_this.currentindexpage = res.data.currentIndex;
+						_this.currentindex = res.data.currentIndex;
+					}
+				})
+				
 			},
 			// 提交按钮点击弹出选择框
 			examsubmit() {
@@ -230,6 +244,13 @@
 			pageswitch(index) {
 				// console.log(this.currentindexpage);
 				if (index) {
+					if(!this.examdata.examlist[this.currentindex].anwsered){
+						uni.showToast({
+							title: '请先答题',
+							icon: 'none'
+						})
+						return;
+					}
 					let curlength = this.analysis ? this.analysislist.length : this.examdata.examlist.length
 					if (this.currentindexpage < curlength - 1) {
 						this.currentindexpage = this.currentindexpage + 1

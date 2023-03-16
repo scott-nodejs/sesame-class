@@ -123,3 +123,10 @@ export function finishTask(data){
 	  data
 	});
 }
+
+export function taskList(data){
+	return request({
+	  url: '/class/task/list/'+data.id+'/'+data.status,
+	  data
+	});
+}
